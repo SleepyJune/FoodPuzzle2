@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     public GameDatabaseManager databaseManager;
 
+    public BoardGameManager boardGameManager;
     public BoardManager boardManager;
     public FoodManager foodManager;
     public static GameManager instance
@@ -38,5 +39,6 @@ public class GameManager : MonoBehaviour
     public void Initialize()
     {
         foodManager.Initialize();
+        boardGameManager.Initialize();
     }
 }

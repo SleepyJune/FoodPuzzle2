@@ -15,8 +15,10 @@ namespace Assets.Game.Board
         public Transform slotParent;
         public Slot slotPrefab;
 
-        public float extraColWidth = 50;
-        public float extraRowHeight = 50;
+        [NonSerialized]
+        public float extraColWidth = 25;
+        [NonSerialized]
+        public float extraRowHeight = 25;
 
         bool boardInitialized = false;
 
@@ -37,7 +39,7 @@ namespace Assets.Game.Board
 
             //Slot.extraMaskHeight = extraMaskHeight;
 
-            int maxHeight = 7;
+            int maxHeight = 9;
             int maxWidth = 7;
 
             for (int y = 0; y < maxHeight; y++)
@@ -100,7 +102,9 @@ namespace Assets.Game.Board
         void SpawnSlot(int x, int y)
         {
             var newSlot = Instantiate(slotPrefab, slotParent);
-            newSlot.Initialize(x, y);
+            var randomFood = GameManager.instance.boardGameManager.GenerateRandomFood();
+
+            newSlot.Initialize(randomFood, x, y);
 
             slots.Add(new Vector2Int(x, y), newSlot);
         }

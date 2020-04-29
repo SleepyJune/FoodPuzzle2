@@ -28,7 +28,7 @@ namespace Assets.Game.Board
         [NonSerialized]
         public FoodObject food;
 
-        public void Initialize(int x, int y)
+        public void Initialize(FoodObject food, int x, int y)
         {
             boardManager = GameManager.instance.boardManager;            
 
@@ -36,15 +36,51 @@ namespace Assets.Game.Board
             this.y = y;
 
             rectTransform = GetComponent<RectTransform>();
-            
-            var randomFood = GameManager.instance.foodManager.GenerateRandomFood();
+                        
+            SetSlotType(food);
 
-            SetSlotType(randomFood);
+            SetPosition();
         }
+
+        public void OnButtonClick()
+        {
+
+        }
+
         public void SetSlotType(FoodObject food)
         {
             this.food = food;
             image.sprite = food.icon;
+        }
+        public void SetPosition(float xPos, float yPos)
+        {
+            rectTransform.anchoredPosition = new Vector2(xPos, yPos);
+        }
+
+        public void SetPosition()
+        {
+            rectTransform.anchoredPosition = toSlotPosition();
+        }
+
+        public Vector2 toSlotPosition()
+        {
+            float yPos = -y * slotWidth;// + extraMaskHeight;
+            float xPos = x * slotHeight + 25;
+
+            return new Vector2(xPos, yPos);
+        }
+
+        public static Vector2 toSlotPosition(int x, int y)
+        {
+            float yPos = -y * slotWidth;// + extraMaskHeight;
+            float xPos = x * slotHeight + 25;
+
+            return new Vector2(xPos, yPos);
+        }
+
+        public string GetPositionString()
+        {
+            return "[" + x + " " + y + "]";
         }
     }
 }
