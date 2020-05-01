@@ -11,6 +11,7 @@ namespace Assets.Game.Board
     public class BoardGameManager : MonoBehaviour
     {
         public RecipeController recipeController;
+        public SlotMatchChecker matchChecker;
 
         FoodRecipeObject currentRecipe;
 
@@ -34,6 +35,11 @@ namespace Assets.Game.Board
             {
                 foodList.Add(food);
             }
+        }
+
+        public void OnSlotPressed(Slot slot)
+        {
+            matchChecker.CheckAndDestroy(slot);
         }
 
         public FoodObject GenerateRandomFood()
