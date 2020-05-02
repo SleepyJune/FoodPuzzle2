@@ -12,10 +12,12 @@ namespace Assets.Game.Board
     {
         BoardManager boardManager;
         BoardGameManager boardGameManager;
+        RecipeController recipeController;
         void Start()
         {
             boardManager = GameManager.instance.boardManager;
             boardGameManager = GameManager.instance.boardGameManager;
+            recipeController = boardGameManager.recipeController;
         }
 
         public void CheckAndDestroy(Slot slot)
@@ -27,6 +29,7 @@ namespace Assets.Game.Board
                 foreach(var match in matches)
                 {
                     boardManager.DestroySlot(match);
+                    recipeController.AddIngredient(match.food, 1);
                 }
             }
         }

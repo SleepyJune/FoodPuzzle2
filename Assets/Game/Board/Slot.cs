@@ -80,7 +80,7 @@ namespace Assets.Game.Board
                 if (currentPos.y - fallingSpeed * Time.deltaTime <= targetPosition.y) //reached target pos
                 {
                     SetPosition();
-                    isFalling = false;
+                    SetFalling(false);
 
                     boardManager.SlotSetPosition(this);
                     //set neighbour
@@ -197,7 +197,7 @@ namespace Assets.Game.Board
             if (!isFalling)
             {
                 fallingSpeed = startFallingSpeed;
-                isFalling = true;
+                SetFalling(true);
 
                 boardManager.SlotRemovePosition(this);
                 DeleteNeighbourConnection();
@@ -207,6 +207,15 @@ namespace Assets.Game.Board
             this.y = y;            
 
             targetPosition = toSlotPosition();
+        }
+
+        void SetFalling(bool condition)
+        {
+            if (isFalling != condition)
+            {
+                anim.SetBool("isFalling", condition);
+                isFalling = condition;
+            }
         }
 
         public void SetSlotType(FoodObject food)
